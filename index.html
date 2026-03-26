@@ -7,58 +7,40 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --g:#22c55e;--r:#ef4444;--y:#eab308;--b:#3b82f6;
-  --fn:'Inconsolata',Consolas,'Lucida Console',monospace;
-  --fh:'DM Sans',sans-serif;
-}
-[data-theme="dark"] {
-  --bg:#0c0c0c;--bg2:#141414;--card:#1a1a1a;--brd:#2a2a2a;
-  --t1:#ffffff;--t2:#e0e0e0;--t3:#b0b0b0;--t4:#808080;
-}
-[data-theme="light"] {
-  --bg:#f0f0f0;--bg2:#e4e4e4;--card:#ffffff;--brd:#cccccc;
-  --t1:#0a0a0a;--t2:#333333;--t3:#666666;--t4:#999999;
-}
+:root{--g:#22c55e;--r:#ef4444;--y:#eab308;--b:#3b82f6;--fn:'Inconsolata',Consolas,'Lucida Console',monospace;--fh:'DM Sans',sans-serif}
+[data-theme="dark"]{--bg:#0c0c0c;--bg2:#141414;--card:#1a1a1a;--brd:#2a2a2a;--t1:#ffffff;--t2:#e0e0e0;--t3:#b0b0b0;--t4:#808080}
+[data-theme="light"]{--bg:#f0f0f0;--bg2:#e4e4e4;--card:#ffffff;--brd:#cccccc;--t1:#0a0a0a;--t2:#333333;--t3:#666666;--t4:#999999}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--t1);font-family:var(--fn);min-height:100vh;transition:background .3s,color .3s}
 ::-webkit-scrollbar{width:7px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--brd);border-radius:4px}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes flashGreen{0%{background:rgba(34,197,94,.2)}100%{background:transparent}}
 .fi{animation:fadeUp .4s ease-out both}
-
 .header{background:var(--bg2);border-bottom:2px solid var(--brd);padding:18px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;transition:background .3s}
 .logo{font-family:var(--fh);font-size:24px;font-weight:900;color:var(--t1);letter-spacing:1px}
 .logo span{color:var(--g)}
 .logo-sub{font-size:15px;color:var(--t3);letter-spacing:4px;margin-top:3px;font-weight:600}
-
 .theme-toggle{display:flex;align-items:center;gap:10px;padding:8px 16px;border-radius:8px;background:var(--card);border:1px solid var(--brd);cursor:pointer;transition:all .3s}
 .theme-toggle:hover{border-color:var(--t3)}
 .theme-icon{font-size:20px;line-height:1}
 .theme-label{font-size:15px;font-weight:700;color:var(--t2);font-family:var(--fn)}
-
 .container{max-width:960px;margin:0 auto;padding:18px 22px}
 .row{display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap}
-
 .status-bar{display:flex;gap:12px;align-items:center;margin-bottom:18px;padding:12px 18px;background:var(--card);border:1px solid var(--brd);border-radius:8px;transition:background .3s}
-
 .metric{background:var(--card);border:1px solid var(--brd);border-radius:10px;padding:16px 18px;text-align:center;flex:1;min-width:0;transition:background .3s}
 .metric.big{padding:22px 20px}
 .ml{color:var(--t3);font-size:15px;letter-spacing:3px;margin-bottom:8px;font-weight:700;text-transform:uppercase}
-.mv{font-weight:900;font-family:var(--fh)}
-.mv.lg{font-size:32px}
-.mv.sm{font-size:22px}
+.mv{font-weight:900;font-family:var(--fh)}.mv.lg{font-size:32px}.mv.sm{font-size:22px}
 .ms{color:var(--t3);font-size:15px;margin-top:5px;font-weight:600}
-
 .card{background:var(--card);border:1px solid var(--brd);border-radius:12px;padding:22px;margin-bottom:18px;transition:background .3s}
 .ct{color:var(--t2);font-size:16px;letter-spacing:3px;margin-bottom:16px;font-weight:800;text-transform:uppercase}
-
 .gate{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:0 8px 8px 0;margin-bottom:10px;transition:background .3s}
 .gd{width:14px;height:14px;border-radius:50%;flex-shrink:0}
 .gt{color:var(--t1);font-size:17px;font-weight:700;font-family:var(--fh)}
 .gs{font-size:18px;font-weight:900;font-family:var(--fh)}
 .gdet{color:var(--t2);font-size:15px;margin-top:4px;line-height:1.6;font-weight:500}
-
 .vbox{border-radius:14px;padding:30px 26px;margin-bottom:20px;text-align:center;transition:all .3s}
 .vtxt{font-family:var(--fh);font-size:48px;font-weight:900;letter-spacing:4px}
 .vdir{font-family:var(--fh);font-size:28px;font-weight:800;margin-top:8px}
@@ -67,24 +49,45 @@ body{background:var(--bg);color:var(--t1);font-family:var(--fn);min-height:100vh
 .sl{color:var(--t3);font-size:15px;letter-spacing:3px;font-weight:800}
 .sb{width:9px;height:28px;border-radius:3px;transition:background .4s}
 .sp{font-size:24px;font-weight:900;font-family:var(--fh)}
-
 .cpill{padding:8px 16px;border-radius:6px;font-size:15px;font-weight:700;display:inline-block;margin:4px}
 .mbtn{padding:10px 18px;border-radius:6px;font-size:15px;cursor:pointer;font-family:var(--fn);font-weight:700;border:1px solid var(--brd);background:var(--bg);color:var(--t2);margin-right:8px;transition:all .2s}
 .mbtn.on{border-color:var(--r);background:rgba(239,68,68,.12);color:var(--r)}
 .mbtn:hover{border-color:var(--t3)}
 .pbadge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:6px;font-size:15px;font-weight:800;letter-spacing:1px}
 .pdot{width:9px;height:9px;border-radius:50%}
-
 .es{font-size:20px;font-weight:900;font-family:var(--fh)}
 .tc{flex:1;min-width:95px;background:var(--bg);border:1px solid var(--brd);border-radius:8px;padding:14px 12px;text-align:center;transition:background .3s}
 .tl{color:var(--t3);font-size:15px;letter-spacing:2px;margin-bottom:5px;font-weight:800}
 .tv{font-size:24px;font-weight:900;font-family:var(--fh)}
 .ts{color:var(--t4);font-size:15px;margin-top:4px;font-weight:600}
-
-.ctrl{flex:1;min-width:95px;padding:14px;border-radius:8px;font-size:16px;cursor:pointer;font-family:var(--fh);font-weight:800;letter-spacing:.5px;background:var(--bg);border:1px solid var(--brd);color:var(--t2);transition:all .2s}
+/* CONTROLS */
+.ctrl{flex:1;min-width:95px;padding:14px;border-radius:8px;font-size:16px;cursor:pointer;font-family:var(--fh);font-weight:800;letter-spacing:.5px;background:var(--bg);border:1px solid var(--brd);color:var(--t2);transition:all .2s;position:relative;overflow:hidden}
 .ctrl:hover{border-color:var(--t3);color:var(--t1)}
 .ctrl.ag{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.3);color:var(--g)}
-
+.ctrl.loading{pointer-events:none;color:var(--y);border-color:rgba(234,179,8,.3)}
+.ctrl.done{color:var(--g);border-color:rgba(34,197,94,.4);animation:flashGreen .8s ease-out}
+.ctrl .spinner{display:none;width:16px;height:16px;border:2px solid var(--brd);border-top-color:var(--y);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:8px}
+.ctrl.loading .spinner{display:inline-block}
+/* IBKR PANEL */
+.ibkr-panel{background:var(--card);border:2px solid var(--b);border-radius:12px;padding:24px;margin-bottom:18px;transition:background .3s}
+.ibkr-title{font-size:18px;font-weight:900;font-family:var(--fh);color:var(--b);letter-spacing:2px;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.ibkr-status{font-size:15px;font-weight:600;padding:4px 12px;border-radius:6px}
+.ibkr-row{display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap;align-items:flex-end}
+.ibkr-field{display:flex;flex-direction:column;gap:6px;flex:1;min-width:140px}
+.ibkr-label{font-size:15px;color:var(--t2);font-weight:700;letter-spacing:1px}
+.ibkr-input{background:var(--bg);border:1px solid var(--brd);border-radius:6px;padding:12px 14px;font-size:17px;font-family:var(--fn);font-weight:700;color:var(--t1);transition:border .2s}
+.ibkr-input:focus{outline:none;border-color:var(--b)}
+.ibkr-select{background:var(--bg);border:1px solid var(--brd);border-radius:6px;padding:12px 14px;font-size:17px;font-family:var(--fn);font-weight:700;color:var(--t1);cursor:pointer}
+.ibkr-select:focus{outline:none;border-color:var(--b)}
+.ibkr-btn{padding:14px 28px;border-radius:8px;font-size:16px;font-family:var(--fh);font-weight:800;cursor:pointer;border:none;letter-spacing:1px;transition:all .2s}
+.ibkr-btn:hover{filter:brightness(1.1)}
+.ibkr-btn.execute{background:var(--g);color:#000}
+.ibkr-btn.cancel{background:var(--bg);border:1px solid var(--brd);color:var(--t2)}
+.ibkr-btn.cancel:hover{border-color:var(--r);color:var(--r)}
+.ibkr-btn.connect{background:var(--b);color:#fff}
+.ibkr-btn:disabled{opacity:.4;cursor:not-allowed}
+.ibkr-summary{background:var(--bg);border:1px solid var(--brd);border-radius:8px;padding:16px;margin:16px 0;font-size:16px;line-height:2}
+.ibkr-msg{font-size:15px;padding:10px 16px;border-radius:6px;margin-top:12px;font-weight:600}
 .lr{display:flex;gap:14px;padding:10px 0;font-size:15px;color:var(--t2);flex-wrap:wrap;border-bottom:1px solid var(--brd);font-weight:600}
 .lr:last-child{border-bottom:none}
 .dbp{background:var(--bg);border:1px solid var(--brd);border-radius:8px;padding:16px;margin-bottom:18px;max-height:240px;overflow-y:auto;font-size:15px;line-height:1.9;font-weight:500}
@@ -166,11 +169,110 @@ body{background:var(--bg);color:var(--t1);font-family:var(--fn);min-height:100vh
     <div class="ct">EXECUTION PLAN</div>
     <div id="execTop" style="border-radius:8px;padding:16px;margin-bottom:16px"></div>
     <div class="row" id="execTgts"></div>
+    <button class="ibkr-btn execute" onclick="openIBKR()" id="execBtn" style="width:100%;margin-top:8px;font-size:18px;padding:16px">⚡ EXECUTE VIA IBKR</button>
+  </div>
+
+  <!-- IBKR TRADE PANEL -->
+  <div class="ibkr-panel fi" id="ibkrPanel" style="display:none">
+    <div class="ibkr-title">
+      <span>⚡ IBKR ORDER ENTRY</span>
+      <span class="ibkr-status" id="ibkrStatus" style="background:var(--bg);color:var(--t3)">DISCONNECTED</span>
+    </div>
+
+    <!-- Connection -->
+    <div class="ibkr-row" id="ibkrConnRow">
+      <div class="ibkr-field">
+        <div class="ibkr-label">GATEWAY URL</div>
+        <input class="ibkr-input" id="ibkrUrl" value="https://localhost:5000" placeholder="https://localhost:5000">
+      </div>
+      <div class="ibkr-field" style="min-width:100px;flex:0.5">
+        <div class="ibkr-label">ACCOUNT ID</div>
+        <input class="ibkr-input" id="ibkrAcct" placeholder="DU123456">
+      </div>
+      <div class="ibkr-field" style="min-width:auto;flex:0">
+        <div class="ibkr-label">&nbsp;</div>
+        <button class="ibkr-btn connect" id="ibkrConnBtn" onclick="connectIBKR()">CONNECT</button>
+      </div>
+    </div>
+
+    <!-- Order Form -->
+    <div style="border-top:1px solid var(--brd);padding-top:18px;margin-top:6px">
+      <div style="font-size:16px;font-weight:800;color:var(--t2);letter-spacing:2px;margin-bottom:14px">ORDER PARAMETERS</div>
+      <div class="ibkr-row">
+        <div class="ibkr-field">
+          <div class="ibkr-label">SYMBOL</div>
+          <input class="ibkr-input" id="ordSym" value="SPY" readonly style="color:var(--t3)">
+        </div>
+        <div class="ibkr-field">
+          <div class="ibkr-label">DIRECTION</div>
+          <select class="ibkr-select" id="ordDir">
+            <option value="BUY">BUY</option>
+            <option value="SELL">SELL</option>
+          </select>
+        </div>
+        <div class="ibkr-field">
+          <div class="ibkr-label">OPTION TYPE</div>
+          <select class="ibkr-select" id="ordType">
+            <option value="C">CALL</option>
+            <option value="P">PUT</option>
+          </select>
+        </div>
+        <div class="ibkr-field">
+          <div class="ibkr-label">STRIKE</div>
+          <input class="ibkr-input" id="ordStrike" type="number" step="1">
+        </div>
+      </div>
+      <div class="ibkr-row">
+        <div class="ibkr-field">
+          <div class="ibkr-label">EXPIRY</div>
+          <input class="ibkr-input" id="ordExpiry" type="text" placeholder="0DTE">
+        </div>
+        <div class="ibkr-field">
+          <div class="ibkr-label">ORDER TYPE</div>
+          <select class="ibkr-select" id="ordOrdType" onchange="toggleLimitPrice()">
+            <option value="MKT">MARKET</option>
+            <option value="LMT">LIMIT</option>
+          </select>
+        </div>
+        <div class="ibkr-field" id="limitPriceField" style="display:none">
+          <div class="ibkr-label">LIMIT PRICE</div>
+          <input class="ibkr-input" id="ordLimit" type="number" step="0.01" placeholder="0.00">
+        </div>
+        <div class="ibkr-field">
+          <div class="ibkr-label">QUANTITY</div>
+          <input class="ibkr-input" id="ordQty" type="number" step="1" value="1" min="1">
+        </div>
+      </div>
+      <div class="ibkr-row">
+        <div class="ibkr-field">
+          <div class="ibkr-label">STOP LOSS</div>
+          <input class="ibkr-input" id="ordStop" type="number" step="0.01" placeholder="Auto from signal">
+        </div>
+        <div class="ibkr-field">
+          <div class="ibkr-label">TAKE PROFIT ($5 TGT)</div>
+          <input class="ibkr-input" id="ordTP1" type="number" step="0.01" placeholder="Auto from signal">
+        </div>
+        <div class="ibkr-field">
+          <div class="ibkr-label">TAKE PROFIT ($10 TGT)</div>
+          <input class="ibkr-input" id="ordTP2" type="number" step="0.01" placeholder="Auto from signal">
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Preview -->
+    <div class="ibkr-summary" id="orderPreview"></div>
+
+    <!-- Action Buttons -->
+    <div style="display:flex;gap:12px;margin-top:8px">
+      <button class="ibkr-btn execute" id="submitOrder" onclick="submitOrder()" style="flex:2;font-size:17px;padding:16px" disabled>⚡ PLACE ORDER</button>
+      <button class="ibkr-btn cancel" onclick="closeIBKR()" style="flex:1;font-size:16px;padding:16px">✕ CANCEL</button>
+    </div>
+    <div id="ibkrMsg"></div>
   </div>
 
   <div class="row">
     <button class="ctrl ag" id="b_pause" onclick="togPause()">⏸ PAUSE</button>
-    <button class="ctrl" onclick="doFetch()">↻ REFRESH</button>
+    <button class="ctrl" id="b_refresh" onclick="doRefresh()"><span class="spinner"></span><span id="refreshText">↻ REFRESH</span></button>
     <button class="ctrl" onclick="logSig()">◉ LOG</button>
     <button class="ctrl" id="b_log" onclick="togLog()">📋 0</button>
   </div>
@@ -184,19 +286,22 @@ body{background:var(--bg);color:var(--t1);font-family:var(--fn);min-height:100vh
 </div>
 
 <script>
+// ═══════ THEME ═══════
 function toggleTheme(){var b=document.body;b.dataset.theme=b.dataset.theme==="dark"?"light":"dark";localStorage.setItem("spy-theme",b.dataset.theme);updateThemeBtn()}
 function updateThemeBtn(){var isDark=document.body.dataset.theme==="dark";document.getElementById("themeIcon").textContent=isDark?"\uD83C\uDF19":"\u2600\uFE0F";document.getElementById("themeLabel").textContent=isDark?"DARK":"LIGHT"}
 (function(){var t=localStorage.getItem("spy-theme");if(t)document.body.dataset.theme=t;updateThemeBtn()})();
 
+// ═══════ CONFIG ═══════
 var FH="d724lghr01qjeeeftbegd724lghr01qjeeeftbf0",FH_API="https://finnhub.io/api/v1";
 var HIGH_KW=["CPI","Consumer Price","PPI","Producer Price","Nonfarm","Non-Farm","NFP","FOMC","Fed Interest","Federal Funds Rate","GDP","PCE","Core PCE","Retail Sales","Unemployment","Initial Jobless"];
 var MED_KW=["Durable Goods","ISM","PMI","Housing Starts","Trade Balance","Industrial Production"];
 var MEGA=["NVDA","AAPL","MSFT","AMZN","GOOGL","META","TSLA"];
 var D={spy:null,qqq:null,iwm:null,vix:null,candles:null,econ:[],earnings:[]},manCat=[],tLog=[],dbgLines=[],fetchN=0,autoR=true,ready=false,intv=null;
+var ibkrConnected=false,ibkrBase="",ibkrAccount="";
 
+// ═══════ UTILS ═══════
 function etStr(){return new Date().toLocaleString("en-US",{timeZone:"America/New_York",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true})}
-function getWin(){var s=new Date().toLocaleString("en-US",{timeZone:"America/New_York"}),d=new Date(s),h=d.getHours(),m=d.getMinutes(),t=h*60+m;
-  if(t>=570&&t<=630)return{l:"9:30–10:30 AM ET",q:"PRIME",c:"var(--g)"};if(t>=840&&t<=930)return{l:"2:00–3:30 PM ET",q:"GOOD",c:"var(--b)"};if(t>=510&&t<=569)return{l:"Pre-Market Data",q:"WATCH",c:"var(--y)"};if(t>=631&&t<=839)return{l:"10:31 AM–1:59 PM",q:"DEAD ZONE",c:"var(--r)"};if(t>=931&&t<=960)return{l:"3:31–4:00 PM ET",q:"CLOSING",c:"#f57a23"};return{l:"Market Closed",q:"CLOSED",c:"var(--t3)"}}
+function getWin(){var s=new Date().toLocaleString("en-US",{timeZone:"America/New_York"}),d=new Date(s),h=d.getHours(),m=d.getMinutes(),t=h*60+m;if(t>=570&&t<=630)return{l:"9:30\u201310:30 AM ET",q:"PRIME",c:"var(--g)"};if(t>=840&&t<=930)return{l:"2:00\u20133:30 PM ET",q:"GOOD",c:"var(--b)"};if(t>=510&&t<=569)return{l:"Pre-Market Data",q:"WATCH",c:"var(--y)"};if(t>=631&&t<=839)return{l:"10:31 AM\u20131:59 PM",q:"DEAD ZONE",c:"var(--r)"};if(t>=931&&t<=960)return{l:"3:31\u20134:00 PM ET",q:"CLOSING",c:"#f57a23"};return{l:"Market Closed",q:"CLOSED",c:"var(--t3)"}}
 function gc(s){return{GREEN:"var(--g)",YELLOW:"var(--y)",RED:"var(--r)",OFF:"var(--t4)"}[s]||"var(--t4)"}
 function dbg(m){dbgLines.unshift("["+new Date().toLocaleTimeString()+"] "+m);if(dbgLines.length>40)dbgLines.length=40;rDbg()}
 function rDbg(){document.getElementById("dbg").innerHTML=dbgLines.map(function(l){return'<div style="color:'+(l.indexOf("\u2713")>=0?"var(--g)":l.indexOf("\u2717")>=0?"var(--r)":"var(--y)")+'">'+l+"</div>"}).join("")}
@@ -204,6 +309,19 @@ function toggleDebug(){var e=document.getElementById("dbg");e.style.display=e.st
 function mH(lbl,val,sub,col,big){return'<div class="ml">'+lbl+'</div><div class="mv '+(big?"lg":"sm")+'" style="color:'+(col||"var(--t1)")+'">'+val+'</div>'+(sub?'<div class="ms">'+sub+'</div>':"")}
 function gH(id,st,title,sc,mx,det){var c=gc(st);document.getElementById(id).innerHTML='<div class="gate" style="background:'+c+'0a;border-left:4px solid '+c+'"><div class="gd" style="background:'+c+";box-shadow:"+(st==="GREEN"?"0 0 14px "+c:"none")+'"></div><div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:baseline"><span class="gt">'+title+'</span><span class="gs" style="color:'+c+'">'+sc+"/"+mx+'</span></div><div class="gdet">'+det+"</div></div></div>"}
 
+// ═══════ REFRESH WITH ANIMATION ═══════
+async function doRefresh(){
+  var btn=document.getElementById("b_refresh");
+  var txt=document.getElementById("refreshText");
+  btn.classList.add("loading");btn.classList.remove("done");
+  txt.textContent="REFRESHING...";
+  await doFetch();
+  btn.classList.remove("loading");btn.classList.add("done");
+  txt.textContent="\u2713 UPDATED";
+  setTimeout(function(){btn.classList.remove("done");txt.textContent="\u21BB REFRESH"},2000);
+}
+
+// ═══════ FETCH ═══════
 async function fhQ(sym){var r=await fetch(FH_API+"/quote?symbol="+encodeURIComponent(sym)+"&token="+FH);if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}
 async function fetchYC(){var url="https://query1.finance.yahoo.com/v8/finance/chart/SPY?interval=5m&range=1d",data;try{var r=await fetch(url);if(r.ok)data=await r.json()}catch(e){}if(!data){try{r=await fetch("https://corsproxy.io/?"+encodeURIComponent(url));if(r.ok)data=await r.json()}catch(e){}}if(!data)return null;var res=data&&data.chart&&data.chart.result&&data.chart.result[0];if(!res||!res.timestamp)return null;var q=res.indicators&&res.indicators.quote&&res.indicators.quote[0];return{t:res.timestamp,o:q&&q.open||[],h:q&&q.high||[],l:q&&q.low||[],c:q&&q.close||[],v:q&&q.volume||[]}}
 async function fetchEc(){var url="https://nfs.faireconomy.media/ff_calendar_thisweek.json",data;try{var r=await fetch(url);if(r.ok)data=await r.json()}catch(e){}if(!data){try{r=await fetch("https://corsproxy.io/?"+encodeURIComponent(url));if(r.ok)data=await r.json()}catch(e){}}if(!Array.isArray(data))return[];var today=new Date().toISOString().slice(0,10);return data.filter(function(e){return e.country==="USD"&&e.date&&e.date.startsWith(today)})}
@@ -211,74 +329,32 @@ async function fetchEr(){var today=new Date().toISOString().slice(0,10);try{var 
 
 async function doFetch(){
   document.getElementById("dot").style.background="var(--y)";document.getElementById("dot").style.animation="pulse 1s infinite";document.getElementById("sMsg").textContent="Fetching...";document.getElementById("sMsg").style.color="var(--y)";var errs=[];
-  // TRY SERVER API FIRST (gets Yahoo candles + econ server-side, no CORS)
   var usedApi=false;
-  try{
-    var ar=await fetch("/api/data");
-    if(ar.ok){
-      var ad=await ar.json();
-      if(ad.spy){D.spy=ad.spy;dbg("\u2713 SPY: $"+ad.spy.c+" (API)")}
-      if(ad.qqq){D.qqq=ad.qqq;dbg("\u2713 QQQ: $"+ad.qqq.c+" (API)")}
-      if(ad.iwm){D.iwm=ad.iwm;dbg("\u2713 IWM: $"+ad.iwm.c+" (API)")}
-      if(ad.vix){D.vix=ad.vix;dbg("\u2713 VIX: "+ad.vix.level+" via "+ad.vix.source+" (API)")}
-      if(ad.candles&&ad.candles.c&&ad.candles.c.length>0){D.candles=ad.candles;dbg("\u2713 Candles: "+ad.candles.c.length+" bars (API)")}
-      else{dbg("\u25CB Candles: none from API")}
-      if(ad.econ){D.econ=ad.econ;dbg("\u2713 Econ: "+ad.econ.length+" (API)")}
-      if(ad.earnings){D.earnings=ad.earnings;dbg("\u2713 Earnings: "+ad.earnings.length+" (API)")}
-      if(ad.errors&&ad.errors.length>0){errs=ad.errors;dbg("\u26A0 API partial: "+ad.errors.join(", "))}
-      usedApi=true;
-    }else{dbg("\u2717 API route: HTTP "+ar.status+", falling back to direct")}
-  }catch(e){dbg("\u2717 API route: "+e.message+", falling back to direct")}
-  // FALLBACK: direct Finnhub if API failed
-  if(!usedApi){
-    var syms=[{s:"SPY",k:"spy"},{s:"QQQ",k:"qqq"},{s:"IWM",k:"iwm"}];var qr=await Promise.allSettled(syms.map(function(s){return fhQ(s.s)}));
-    qr.forEach(function(r,i){if(r.status==="fulfilled"&&r.value&&r.value.c>0){D[syms[i].k]=r.value;dbg("\u2713 "+syms[i].s+": $"+r.value.c)}else{errs.push(syms[i].s);dbg("\u2717 "+syms[i].s+": "+(r.status==="rejected"?r.reason&&r.reason.message:"empty"))}});
-    var gotV=false,vS=["^VIX","VIX","VIXY"];for(var vi=0;vi<vS.length;vi++){if(gotV)break;try{var q=await fhQ(vS[vi]);if(q&&q.c>0){D.vix={level:q.c,pc:q.pc,source:vS[vi],isProxy:vS[vi]==="VIXY"};dbg("\u2713 VIX via "+vS[vi]+": "+q.c);gotV=true}else dbg("\u25CB "+vS[vi]+": c="+(q&&q.c))}catch(e){dbg("\u2717 "+vS[vi]+": "+e.message)}}if(!gotV)errs.push("VIX");
-    try{var cn=await fetchYC();if(cn&&cn.c.length>0){D.candles=cn;dbg("\u2713 Candles: "+cn.c.length+" bars")}else dbg("\u25CB Candles: none (CORS blocked or market closed)")}catch(e){errs.push("Candles")}
-    try{D.econ=await fetchEc();dbg("\u2713 Econ: "+D.econ.length)}catch(e){errs.push("Econ")}
-    try{D.earnings=await fetchEr();dbg("\u2713 Earnings: "+D.earnings.length)}catch(e){errs.push("Earnings")}
-  }
+  try{var ar=await fetch("/api/data");if(ar.ok){var ad=await ar.json();if(ad.spy){D.spy=ad.spy;dbg("\u2713 SPY: $"+ad.spy.c+" (API)")}if(ad.qqq){D.qqq=ad.qqq;dbg("\u2713 QQQ: $"+ad.qqq.c+" (API)")}if(ad.iwm){D.iwm=ad.iwm;dbg("\u2713 IWM: $"+ad.iwm.c+" (API)")}if(ad.vix){D.vix=ad.vix;dbg("\u2713 VIX: "+ad.vix.level+" (API)")}if(ad.candles&&ad.candles.c&&ad.candles.c.length>0){D.candles=ad.candles;dbg("\u2713 Candles: "+ad.candles.c.length+" (API)")}else{dbg("\u25CB Candles: none from API")}if(ad.econ){D.econ=ad.econ;dbg("\u2713 Econ: "+ad.econ.length+" (API)")}if(ad.earnings){D.earnings=ad.earnings;dbg("\u2713 Earnings: "+ad.earnings.length+" (API)")}if(ad.errors&&ad.errors.length>0){errs=ad.errors}usedApi=true}else{dbg("\u2717 API: HTTP "+ar.status+", fallback")}}catch(e){dbg("\u2717 API: "+e.message+", fallback")}
+  if(!usedApi){var syms=[{s:"SPY",k:"spy"},{s:"QQQ",k:"qqq"},{s:"IWM",k:"iwm"}];var qr=await Promise.allSettled(syms.map(function(s){return fhQ(s.s)}));qr.forEach(function(r,i){if(r.status==="fulfilled"&&r.value&&r.value.c>0){D[syms[i].k]=r.value;dbg("\u2713 "+syms[i].s+": $"+r.value.c)}else{errs.push(syms[i].s);dbg("\u2717 "+syms[i].s)}});var gotV=false,vS=["^VIX","VIX","VIXY"];for(var vi=0;vi<vS.length;vi++){if(gotV)break;try{var q=await fhQ(vS[vi]);if(q&&q.c>0){D.vix={level:q.c,pc:q.pc,source:vS[vi],isProxy:vS[vi]==="VIXY"};dbg("\u2713 VIX: "+q.c);gotV=true}}catch(e){}}if(!gotV)errs.push("VIX");try{var cn=await fetchYC();if(cn&&cn.c.length>0){D.candles=cn;dbg("\u2713 Candles: "+cn.c.length)}}catch(e){errs.push("Candles")}try{D.econ=await fetchEc();dbg("\u2713 Econ: "+D.econ.length)}catch(e){}try{D.earnings=await fetchEr();dbg("\u2713 Earnings: "+D.earnings.length)}catch(e){}}
   ready=true;fetchN++;var ok=errs.length===0;
-  document.getElementById("sMsg").textContent=ok?"ALL FEEDS CONNECTED"+(usedApi?" (API)":""):"PARTIAL — "+errs.join(", ").toUpperCase();document.getElementById("sMsg").style.color=ok?"var(--g)":"var(--y)";
-  document.getElementById("dot").style.background=ok?"var(--g)":"var(--y)";document.getElementById("dot").style.animation="none";document.getElementById("sLabel").textContent=(autoR?"LIVE 30s":"PAUSED")+" #"+fetchN;render()
+  document.getElementById("sMsg").textContent=ok?"ALL FEEDS CONNECTED"+(usedApi?" (API)":""):"PARTIAL \u2014 "+errs.join(", ").toUpperCase();document.getElementById("sMsg").style.color=ok?"var(--g)":"var(--y)";document.getElementById("dot").style.background=ok?"var(--g)":"var(--y)";document.getElementById("dot").style.animation="none";document.getElementById("sLabel").textContent=(autoR?"LIVE 30s":"PAUSED")+" #"+fetchN;render()
 }
 
+// ═══════ ANALYZE ═══════
 function analyze(){
-  var spy=D.spy,qqq=D.qqq,iwm=D.iwm,vix=D.vix,cn=D.candles;
-  var sP=spy&&spy.c||0,sC=spy&&spy.d||0,sPct=spy&&spy.dp||0,sPC=spy&&spy.pc||0,sO=spy&&spy.o||0,sH=spy&&spy.h||0,sL=spy&&spy.l||0;
-  var dr=(sH&&sL)?sH-sL:0,qP=qqq&&qqq.dp||0,iP=iwm&&iwm.dp||0,vL=vix&&vix.level||0,vPx=vix&&vix.isProxy||false;
-  var vwap=0,vSer=[],abV=null,vHold=0,vRat=0;
-  if(cn&&cn.c&&cn.c.length){var tpv=0,vol=0;vSer=[];for(var i=0;i<cn.c.length;i++){if(cn.c[i]===null)continue;var tp=(cn.h[i]+cn.l[i]+cn.c[i])/3;tpv+=tp*(cn.v[i]||0);vol+=(cn.v[i]||0);vSer.push(vol>0?tpv/vol:0)}if(vSer.length>0)vwap=vSer[vSer.length-1];if(sP>0&&vwap>0)abV=sP>vwap;if(vSer.length>1){for(var j=vSer.length-1;j>=0;j--){if(cn.c[j]===null)break;if((cn.c[j]>vSer[j])===abV)vHold++;else break}}var vs=cn.v.filter(function(x){return x>0});if(vs.length>=3){var last=vs[vs.length-1],prev=vs.slice(Math.max(0,vs.length-21),vs.length-1),avg=prev.reduce(function(a,b){return a+b},0)/prev.length;if(avg>0)vRat=last/avg}}
+  var spy=D.spy,qqq=D.qqq,iwm=D.iwm,vix=D.vix,cn=D.candles;var sP=spy&&spy.c||0,sC=spy&&spy.d||0,sPct=spy&&spy.dp||0,sPC=spy&&spy.pc||0,sO=spy&&spy.o||0,sH=spy&&spy.h||0,sL=spy&&spy.l||0;var dr=(sH&&sL)?sH-sL:0,qP=qqq&&qqq.dp||0,iP=iwm&&iwm.dp||0,vL=vix&&vix.level||0,vPx=vix&&vix.isProxy||false;
+  var vwap=0,vSer=[],abV=null,vHold=0,vRat=0;if(cn&&cn.c&&cn.c.length){var tpv=0,vol=0;vSer=[];for(var i=0;i<cn.c.length;i++){if(cn.c[i]===null)continue;var tp=(cn.h[i]+cn.l[i]+cn.c[i])/3;tpv+=tp*(cn.v[i]||0);vol+=(cn.v[i]||0);vSer.push(vol>0?tpv/vol:0)}if(vSer.length>0)vwap=vSer[vSer.length-1];if(sP>0&&vwap>0)abV=sP>vwap;if(vSer.length>1){for(var j=vSer.length-1;j>=0;j--){if(cn.c[j]===null)break;if((cn.c[j]>vSer[j])===abV)vHold++;else break}}var vs=cn.v.filter(function(x){return x>0});if(vs.length>=3){var last=vs[vs.length-1],prev=vs.slice(Math.max(0,vs.length-21),vs.length-1),avg=prev.reduce(function(a,b){return a+b},0)/prev.length;if(avg>0)vRat=last/avg}}
   var pR=0;if(cn&&cn.h){var n=Math.min(6,cn.h.length),hi=-Infinity,lo=Infinity;for(var k=0;k<n;k++){if(cn.h[k]!==null&&cn.h[k]>hi)hi=cn.h[k];if(cn.l[k]!==null&&cn.l[k]<lo)lo=cn.l[k]}if(hi>lo&&hi<Infinity)pR=hi-lo}if(pR===0&&sO>0&&sPC>0)pR=Math.abs(sO-sPC);
-  var hE=D.econ.filter(function(e){return HIGH_KW.some(function(k){return(e.title||e.event||"").toUpperCase().indexOf(k.toUpperCase())>=0})});
-  var mE=D.econ.filter(function(e){return MED_KW.some(function(k){return(e.title||e.event||"").toUpperCase().indexOf(k.toUpperCase())>=0})});
-  var megE=D.earnings.filter(function(e){return MEGA.indexOf((e.symbol||"").toUpperCase())>=0});
-  var aCat=hE.map(function(e){return{l:e.title||e.event,i:"HIGH"}}).concat(mE.map(function(e){return{l:e.title||e.event,i:"MED"}})).concat(megE.map(function(e){return{l:e.symbol+" Earnings",i:"HIGH"}}));
-  var allC=aCat.concat(manCat.map(function(m){return{l:m,i:"HIGH"}}));var hH=allC.some(function(c){return c.i==="HIGH"}),hA=allC.length>0;
-  var cG=hH?"GREEN":hA?"YELLOW":"RED",cS=hH?3:hA?1:0;var xG=vL>=18?"GREEN":vL>=15?"YELLOW":vL>0?"RED":"OFF",xS=vL>=22?3:vL>=18?2:vL>=15?1:0;
-  var pG=pR>=3?"GREEN":pR>=1.5?"YELLOW":pR>0.2?"RED":"OFF",pS=pR>=3?2:pR>=1.5?1:0;var w=getWin(),wG=["PRIME","GOOD"].indexOf(w.q)>=0?"GREEN":w.q==="WATCH"?"YELLOW":"RED",wS=w.q==="PRIME"?3:w.q==="GOOD"?2:w.q==="WATCH"?1:0;
-  var vOk=abV!==null&&vHold>=2,vG=vOk?"GREEN":abV!==null?"YELLOW":"OFF",vvS=vHold>=4?3:vHold>=2?2:abV!==null?1:0;
-  var rG=vRat>=1.5?"GREEN":vRat>=1.2?"YELLOW":vRat>0?"RED":"OFF",rS=vRat>=2?3:vRat>=1.5?2:vRat>=1.2?1:0;
-  var dir=sPct>0.05?"BULL":sPct<-0.05?"BEAR":null;var sA=dir==="BULL"?(qP>0&&iP>0):dir==="BEAR"?(qP<0&&iP<0):false;var sP2=dir==="BULL"?(qP>0||iP>0):dir==="BEAR"?(qP<0||iP<0):false;
-  var sG=sA?"GREEN":sP2?"YELLOW":(qqq&&iwm)?"RED":"OFF",sS=sA?2:sP2?1:0;
-  var tot=cS+xS+pS+wS+vvS+rS+sS,pct=Math.round(tot/19*100),pp=cG!=="RED"&&xG!=="RED"&&xG!=="OFF";
-  var cp=abV===true?"CALLS":abV===false?"PUTS":(sC>0?"CALLS":sC<0?"PUTS":"\u2014");var dc=cp==="CALLS"?"var(--g)":cp==="PUTS"?"var(--r)":"var(--t3)";
-  var v="WAIT",vc="var(--t4)",vd="";
-  if(!ready){v="LOADING";vc="var(--y)";vd="Connecting...";}
-  else if(pp&&tot>=14){v="STRONG GO";vc="var(--g)";vd="High-conviction "+cp+". All primary gates passed.";}
-  else if(pp&&tot>=10){v="GO";vc="var(--b)";vd="Favorable "+cp+" setup. Reduce size for YELLOW gates.";}
-  else if(pp&&tot>=7){v="CAUTION";vc="var(--y)";vd="Weak "+cp+" setup. Half size, tight stops.";}
-  else{v="NO TRADE";vc="var(--r)";vd=cG==="RED"?"No catalyst \u2014 $10 moves need a driver.":(xG==="RED"||xG==="OFF")?"VIX "+(vL>0?vL.toFixed(1):"N/A")+" \u2014 conditions not met.":"Conditions insufficient.";}
+  var hE=D.econ.filter(function(e){return HIGH_KW.some(function(k){return(e.title||e.event||"").toUpperCase().indexOf(k.toUpperCase())>=0})});var mE=D.econ.filter(function(e){return MED_KW.some(function(k){return(e.title||e.event||"").toUpperCase().indexOf(k.toUpperCase())>=0})});var megE=D.earnings.filter(function(e){return MEGA.indexOf((e.symbol||"").toUpperCase())>=0});
+  var aCat=hE.map(function(e){return{l:e.title||e.event,i:"HIGH"}}).concat(mE.map(function(e){return{l:e.title||e.event,i:"MED"}})).concat(megE.map(function(e){return{l:e.symbol+" Earnings",i:"HIGH"}}));var allC=aCat.concat(manCat.map(function(m){return{l:m,i:"HIGH"}}));var hH=allC.some(function(c){return c.i==="HIGH"}),hA=allC.length>0;
+  var cG=hH?"GREEN":hA?"YELLOW":"RED",cS=hH?3:hA?1:0;var xG=vL>=18?"GREEN":vL>=15?"YELLOW":vL>0?"RED":"OFF",xS=vL>=22?3:vL>=18?2:vL>=15?1:0;var pG=pR>=3?"GREEN":pR>=1.5?"YELLOW":pR>0.2?"RED":"OFF",pS=pR>=3?2:pR>=1.5?1:0;var w=getWin(),wG=["PRIME","GOOD"].indexOf(w.q)>=0?"GREEN":w.q==="WATCH"?"YELLOW":"RED",wS=w.q==="PRIME"?3:w.q==="GOOD"?2:w.q==="WATCH"?1:0;var vOk=abV!==null&&vHold>=2,vG=vOk?"GREEN":abV!==null?"YELLOW":"OFF",vvS=vHold>=4?3:vHold>=2?2:abV!==null?1:0;var rG=vRat>=1.5?"GREEN":vRat>=1.2?"YELLOW":vRat>0?"RED":"OFF",rS=vRat>=2?3:vRat>=1.5?2:vRat>=1.2?1:0;var dir=sPct>0.05?"BULL":sPct<-0.05?"BEAR":null;var sA=dir==="BULL"?(qP>0&&iP>0):dir==="BEAR"?(qP<0&&iP<0):false;var sP2=dir==="BULL"?(qP>0||iP>0):dir==="BEAR"?(qP<0||iP<0):false;var sG=sA?"GREEN":sP2?"YELLOW":(qqq&&iwm)?"RED":"OFF",sS=sA?2:sP2?1:0;
+  var tot=cS+xS+pS+wS+vvS+rS+sS,pct=Math.round(tot/19*100),pp=cG!=="RED"&&xG!=="RED"&&xG!=="OFF";var cp=abV===true?"CALLS":abV===false?"PUTS":(sC>0?"CALLS":sC<0?"PUTS":"\u2014");var dc=cp==="CALLS"?"var(--g)":cp==="PUTS"?"var(--r)":"var(--t3)";
+  var v="WAIT",vc="var(--t4)",vd="";if(!ready){v="LOADING";vc="var(--y)";vd="Connecting...";}else if(pp&&tot>=14){v="STRONG GO";vc="var(--g)";vd="High-conviction "+cp+". All primary gates passed.";}else if(pp&&tot>=10){v="GO";vc="var(--b)";vd="Favorable "+cp+" setup. Reduce size for YELLOW gates.";}else if(pp&&tot>=7){v="CAUTION";vc="var(--y)";vd="Weak "+cp+" setup. Half size, tight stops.";}else{v="NO TRADE";vc="var(--r)";vd=cG==="RED"?"No catalyst \u2014 $10 moves need a driver.":(xG==="RED"||xG==="OFF")?"VIX "+(vL>0?vL.toFixed(1):"N/A")+" \u2014 conditions not met.":"Conditions insufficient.";}
   return{sP:sP,sC:sC,sPct:sPct,sPC:sPC,sO:sO,sH:sH,sL:sL,dr:dr,qP:qP,iP:iP,vL:vL,vPx:vPx,vwap:vwap,abV:abV,vHold:vHold,vRat:vRat,pR:pR,aCat:aCat,allC:allC,hH:hH,hA:hA,cG:cG,cS:cS,xG:xG,xS:xS,pG:pG,pS:pS,w:w,wG:wG,wS:wS,vG:vG,vvS:vvS,rG:rG,rS:rS,sG:sG,sS:sS,tot:tot,pct:pct,pp:pp,cp:cp,dc:dc,v:v,vc:vc,vd:vd,atm:sP>0?sP*0.006:0}
 }
 
+// ═══════ RENDER ═══════
 function render(){
   var a=analyze();document.getElementById("vText").style.color=a.vc;document.getElementById("vText").textContent=a.v;
   var dd=document.getElementById("vDir");if(a.cp!=="\u2014"&&["NO TRADE","WAIT","LOADING"].indexOf(a.v)<0){dd.style.display="block";dd.style.color=a.dc;dd.textContent="\u25B8 "+a.cp}else dd.style.display="none";
-  document.getElementById("vDetail").textContent=a.vd;document.getElementById("vBox").style.borderColor=a.vc;
-  document.getElementById("pctVal").textContent=a.pct+"%";document.getElementById("pctVal").style.color=a.vc;
+  document.getElementById("vDetail").textContent=a.vd;document.getElementById("vBox").style.borderColor=a.vc;document.getElementById("pctVal").textContent=a.pct+"%";document.getElementById("pctVal").style.color=a.vc;
   var bh="";for(var i=0;i<10;i++){var on=i<Math.round(a.pct/10);bh+='<div class="sb" style="background:'+(on?(a.pct>=70?"var(--g)":a.pct>=50?"var(--y)":"var(--r)"):"var(--brd)")+'"></div>'}document.getElementById("bars").innerHTML=bh;
-
   document.getElementById("m_spy").innerHTML=mH("SPY",a.sP>0?a.sP.toFixed(2):"\u2014",a.sP>0?(a.sC>0?"+":"")+a.sC.toFixed(2)+" ("+(a.sPct>0?"+":"")+a.sPct.toFixed(2)+"%)":"Awaiting",a.sC>0?"var(--g)":a.sC<0?"var(--r)":"var(--t1)",true);
   document.getElementById("m_vix").innerHTML=mH(a.vPx?"VIXY PROXY":"VIX",a.vL>0?a.vL.toFixed(2):"\u2014",a.vL>0?(a.vL>=22?"HIGH VOL":a.vL>=18?"ELEVATED":a.vL>=15?"MODERATE":"LOW"):"Awaiting",a.vL>=18?"var(--g)":a.vL>=15?"var(--y)":a.vL>0?"var(--r)":"var(--t2)",true);
   document.getElementById("m_qqq").innerHTML=mH("QQQ",D.qqq?(a.qP>0?"+":"")+a.qP.toFixed(2)+"%":"\u2014",D.qqq?"$"+D.qqq.c.toFixed(2):"",a.qP>0?"var(--g)":a.qP<0?"var(--r)":"var(--t1)");
@@ -289,31 +365,119 @@ function render(){
   document.getElementById("m_dr").innerHTML=mH("DAY RANGE",a.dr>0?"$"+a.dr.toFixed(2):"\u2014",a.sH>0?a.sL.toFixed(0)+"\u2013"+a.sH.toFixed(0):"",a.dr>=5?"var(--g)":a.dr>=2?"var(--y)":"var(--t2)");
   document.getElementById("m_pc").innerHTML=mH("PREV CLOSE",a.sPC>0?a.sPC.toFixed(2):"\u2014","","var(--t1)");
   document.getElementById("m_gap").innerHTML=mH("GAP",a.sO>0&&a.sPC>0?((a.sO-a.sPC)>0?"+":"")+"$"+(a.sO-a.sPC).toFixed(2):"\u2014","open vs prev",Math.abs(a.sO-a.sPC)>1?"var(--g)":"var(--y)");
-
-  var cc=a.hH?"var(--g)":a.hA?"var(--y)":"var(--r)";
-  document.getElementById("catPill").style.cssText="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:6px;font-size:15px;font-weight:800;background:"+cc+"15;color:"+cc+";border:1px solid "+cc+"40";
-  document.getElementById("catPill").innerHTML='<span class="pdot" style="background:'+cc+'"></span>'+(a.hH?"HIGH IMPACT":a.hA?"MODERATE":"NONE DETECTED");
-  if(a.aCat.length>0){document.getElementById("catList").innerHTML=a.aCat.map(function(c){var col=c.i==="HIGH"?"var(--r)":"var(--y)";return'<span class="cpill" style="background:'+col+'15;color:'+col+';border:1px solid '+col+'40">'+c.l+' <span style="opacity:.5;font-size:13px">AUTO</span></span>'}).join("")}
-  else document.getElementById("catList").innerHTML='<span style="color:var(--t2);font-size:15px;font-weight:600">No auto-detected catalysts today</span>';
-
-  gH("g_cat",a.cG,"Catalyst",a.cS,3,a.hH?"High: "+a.allC.filter(function(c){return c.i==="HIGH"}).map(function(c){return c.l}).join(", "):a.hA?"Moderate: "+a.allC.map(function(c){return c.l}).join(", "):"No catalyst \u2014 $10 moves need a driver");
-  gH("g_vix",a.xG,"VIX Level",a.xS,3,a.vL>0?a.vL.toFixed(1)+(a.vPx?" (VIXY)":"")+" \u2014 "+(a.vL>=22?"High vol":a.vL>=18?"Elevated":a.vL>=15?"Moderate":"Too low"):"No VIX data");
-  gH("g_pre",a.pG,"Pre-Market Range",a.pS,2,a.pR>0.2?"$"+a.pR.toFixed(2)+" \u2014 "+(a.pR>=3?"High energy":a.pR>=1.5?"Moderate":"Tight"):"Calculating");
-  gH("g_win",a.wG,"Timing Window",a.wS,3,a.w.l+" \u2014 "+a.w.q);
-  gH("g_vwap",a.vG,"VWAP Break + Hold",a.vvS,3,a.abV!==null?(a.abV?"ABOVE":"BELOW")+" VWAP, "+a.vHold+" candle"+(a.vHold!==1?"s":"")+(a.vHold>=2?" \u2713":""):"No candles (market may be closed)");
-  gH("g_vol",a.rG,"Volume",a.rS,3,a.vRat>0?a.vRat.toFixed(2)+"x avg \u2014 "+(a.vRat>=1.5?"Strong":a.vRat>=1.2?"Moderate":"Thin"):"No volume data");
-  gH("g_sec",a.sG,"Sector Alignment",a.sS,2,D.qqq&&D.iwm?"QQQ "+(a.qP>0?"+":"")+a.qP.toFixed(2)+"% / IWM "+(a.iP>0?"+":"")+a.iP.toFixed(2)+"% \u2014 "+(a.sG==="GREEN"?"Aligned":a.sG==="YELLOW"?"Partial":"Diverging"):"Awaiting data");
+  var cc=a.hH?"var(--g)":a.hA?"var(--y)":"var(--r)";document.getElementById("catPill").style.cssText="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:6px;font-size:15px;font-weight:800;background:"+cc+"15;color:"+cc+";border:1px solid "+cc+"40";document.getElementById("catPill").innerHTML='<span class="pdot" style="background:'+cc+'"></span>'+(a.hH?"HIGH IMPACT":a.hA?"MODERATE":"NONE DETECTED");
+  if(a.aCat.length>0){document.getElementById("catList").innerHTML=a.aCat.map(function(c){var col=c.i==="HIGH"?"var(--r)":"var(--y)";return'<span class="cpill" style="background:'+col+'15;color:'+col+';border:1px solid '+col+'40">'+c.l+' <span style="opacity:.5;font-size:13px">AUTO</span></span>'}).join("")}else document.getElementById("catList").innerHTML='<span style="color:var(--t2);font-size:15px;font-weight:600">No auto-detected catalysts today</span>';
+  gH("g_cat",a.cG,"Catalyst",a.cS,3,a.hH?"High: "+a.allC.filter(function(c){return c.i==="HIGH"}).map(function(c){return c.l}).join(", "):a.hA?"Moderate: "+a.allC.map(function(c){return c.l}).join(", "):"No catalyst \u2014 $10 moves need a driver");gH("g_vix",a.xG,"VIX Level",a.xS,3,a.vL>0?a.vL.toFixed(1)+(a.vPx?" (VIXY)":"")+" \u2014 "+(a.vL>=22?"High vol":a.vL>=18?"Elevated":a.vL>=15?"Moderate":"Too low"):"No VIX data");gH("g_pre",a.pG,"Pre-Market Range",a.pS,2,a.pR>0.2?"$"+a.pR.toFixed(2)+" \u2014 "+(a.pR>=3?"High energy":a.pR>=1.5?"Moderate":"Tight"):"Calculating");gH("g_win",a.wG,"Timing Window",a.wS,3,a.w.l+" \u2014 "+a.w.q);gH("g_vwap",a.vG,"VWAP Break + Hold",a.vvS,3,a.abV!==null?(a.abV?"ABOVE":"BELOW")+" VWAP, "+a.vHold+" candle"+(a.vHold!==1?"s":"")+(a.vHold>=2?" \u2713":""):"No candles (market may be closed)");gH("g_vol",a.rG,"Volume",a.rS,3,a.vRat>0?a.vRat.toFixed(2)+"x avg \u2014 "+(a.vRat>=1.5?"Strong":a.vRat>=1.2?"Moderate":"Thin"):"No volume data");gH("g_sec",a.sG,"Sector Alignment",a.sS,2,D.qqq&&D.iwm?"QQQ "+(a.qP>0?"+":"")+a.qP.toFixed(2)+"% / IWM "+(a.iP>0?"+":"")+a.iP.toFixed(2)+"% \u2014 "+(a.sG==="GREEN"?"Aligned":a.sG==="YELLOW"?"Partial":"Diverging"):"Awaiting data");
 
   var ec=document.getElementById("execCard");
-  if(["NO TRADE","WAIT","LOADING"].indexOf(a.v)<0&&a.sP>0){ec.style.display="block";ec.style.borderColor=a.dc+"33";
-    var st=Math.round(a.sP),side=a.cp==="CALLS"?"C":"P";
-    document.getElementById("execTop").innerHTML='<div class="es" style="color:'+a.dc+'">Buy SPY '+st+side+' 0DTE</div><div style="color:var(--t2);font-size:16px;margin-top:4px;font-weight:600">Est. premium: ~$'+a.atm.toFixed(2)+"</div>";
-    document.getElementById("execTop").style.cssText="border-radius:8px;padding:16px;margin-bottom:16px;background:"+a.dc+"0a;border:1px solid "+a.dc+"25";
-    var tgts=[{l:"STOP",v:"$"+(a.atm*.5).toFixed(2),s:"50% prem",c:"var(--r)"},{l:"$5 TGT",v:"$"+(a.atm+5*.55).toFixed(2),s:"Take 50%",c:"var(--y)"},{l:"$10 TGT",v:"$"+(a.atm+10*.7).toFixed(2),s:"Full exit",c:"var(--g)"},{l:"TIME",v:"90m",s:"Hard max",c:"var(--b)"}];
-    document.getElementById("execTgts").innerHTML=tgts.map(function(t){return'<div class="tc"><div class="tl">'+t.l+'</div><div class="tv" style="color:'+t.c+'">'+t.v+'</div><div class="ts">'+t.s+"</div></div>"}).join("")
-  }else ec.style.display="none"
+  if(["NO TRADE","WAIT","LOADING"].indexOf(a.v)<0&&a.sP>0){ec.style.display="block";ec.style.borderColor=a.dc+"33";var st=Math.round(a.sP),side=a.cp==="CALLS"?"C":"P";document.getElementById("execTop").innerHTML='<div class="es" style="color:'+a.dc+'">Buy SPY '+st+side+' 0DTE</div><div style="color:var(--t2);font-size:16px;margin-top:4px;font-weight:600">Est. premium: ~$'+a.atm.toFixed(2)+"</div>";document.getElementById("execTop").style.cssText="border-radius:8px;padding:16px;margin-bottom:16px;background:"+a.dc+"0a;border:1px solid "+a.dc+"25";var tgts=[{l:"STOP",v:"$"+(a.atm*.5).toFixed(2),s:"50% prem",c:"var(--r)"},{l:"$5 TGT",v:"$"+(a.atm+5*.55).toFixed(2),s:"Take 50%",c:"var(--y)"},{l:"$10 TGT",v:"$"+(a.atm+10*.7).toFixed(2),s:"Full exit",c:"var(--g)"},{l:"TIME",v:"90m",s:"Hard max",c:"var(--b)"}];document.getElementById("execTgts").innerHTML=tgts.map(function(t){return'<div class="tc"><div class="tl">'+t.l+'</div><div class="tv" style="color:'+t.c+'">'+t.v+'</div><div class="ts">'+t.s+"</div></div>"}).join("")}else ec.style.display="none"
 }
 
+// ═══════ IBKR ═══════
+function toggleLimitPrice(){document.getElementById("limitPriceField").style.display=document.getElementById("ordOrdType").value==="LMT"?"block":"none"}
+
+function openIBKR(){
+  var a=analyze();if(!a.sP)return;
+  document.getElementById("ibkrPanel").style.display="block";
+  var isCall=a.cp==="CALLS";
+  document.getElementById("ordType").value=isCall?"C":"P";
+  document.getElementById("ordStrike").value=Math.round(a.sP);
+  var today=new Date();var mm=String(today.getMonth()+1).padStart(2,"0");var dd=String(today.getDate()).padStart(2,"0");
+  document.getElementById("ordExpiry").value=today.getFullYear()+mm+dd+" (0DTE)";
+  document.getElementById("ordStop").value=(a.atm*0.5).toFixed(2);
+  document.getElementById("ordTP1").value=(a.atm+5*0.55).toFixed(2);
+  document.getElementById("ordTP2").value=(a.atm+10*0.7).toFixed(2);
+  document.getElementById("ordDir").value="BUY";
+  updatePreview();
+  document.getElementById("ibkrPanel").scrollIntoView({behavior:"smooth"});
+  // Listen for changes
+  ["ordDir","ordType","ordStrike","ordExpiry","ordOrdType","ordLimit","ordQty","ordStop","ordTP1","ordTP2"].forEach(function(id){document.getElementById(id).addEventListener("input",updatePreview);document.getElementById(id).addEventListener("change",updatePreview)});
+}
+
+function closeIBKR(){document.getElementById("ibkrPanel").style.display="none"}
+
+function updatePreview(){
+  var dir=document.getElementById("ordDir").value;
+  var otype=document.getElementById("ordType").value==="C"?"CALL":"PUT";
+  var strike=document.getElementById("ordStrike").value;
+  var expiry=document.getElementById("ordExpiry").value;
+  var ordType=document.getElementById("ordOrdType").value;
+  var limit=document.getElementById("ordLimit").value;
+  var qty=document.getElementById("ordQty").value;
+  var stop=document.getElementById("ordStop").value;
+  var tp1=document.getElementById("ordTP1").value;
+  var tp2=document.getElementById("ordTP2").value;
+  var html='<div style="font-size:16px;font-weight:800;color:var(--t2);margin-bottom:10px;letter-spacing:1px">ORDER PREVIEW</div>';
+  html+='<div style="color:var(--t1);font-size:18px;font-weight:800;font-family:var(--fh)">'+dir+" "+qty+"x SPY "+strike+" "+otype+" "+expiry+"</div>";
+  html+='<div style="color:var(--t2);margin-top:8px">Order Type: <strong>'+ordType+'</strong>'+(ordType==="LMT"?" @ $"+limit:"")+"</div>";
+  html+='<div style="color:var(--r);margin-top:4px">Stop Loss: <strong>$'+stop+"</strong></div>";
+  html+='<div style="color:var(--y);margin-top:4px">Take Profit 1 ($5 move): <strong>$'+tp1+"</strong></div>";
+  html+='<div style="color:var(--g);margin-top:4px">Take Profit 2 ($10 move): <strong>$'+tp2+"</strong></div>";
+  document.getElementById("orderPreview").innerHTML=html;
+}
+
+async function connectIBKR(){
+  ibkrBase=document.getElementById("ibkrUrl").value.replace(/\/$/,"");
+  ibkrAccount=document.getElementById("ibkrAcct").value.trim();
+  var st=document.getElementById("ibkrStatus");
+  var btn=document.getElementById("ibkrConnBtn");
+  btn.textContent="CONNECTING...";btn.disabled=true;
+  try{
+    var r=await fetch(ibkrBase+"/v1/api/iserver/auth/status",{method:"POST"});
+    var d=await r.json();
+    if(d.authenticated){
+      ibkrConnected=true;st.textContent="CONNECTED";st.style.background="rgba(34,197,94,.15)";st.style.color="var(--g)";
+      document.getElementById("submitOrder").disabled=false;
+      showIBKRMsg("Connected to IBKR Gateway. Account: "+(ibkrAccount||"auto"),"var(--g)");
+    }else{
+      st.textContent="AUTH REQUIRED";st.style.background="rgba(234,179,8,.15)";st.style.color="var(--y)";
+      showIBKRMsg("Gateway responded but not authenticated. Please log into IBKR Client Portal first.","var(--y)");
+    }
+  }catch(e){
+    st.textContent="FAILED";st.style.background="rgba(239,68,68,.15)";st.style.color="var(--r)";
+    showIBKRMsg("Cannot reach IBKR Gateway at "+ibkrBase+". Make sure Client Portal Gateway is running and you have accepted the SSL certificate in your browser.","var(--r)");
+  }
+  btn.textContent="CONNECT";btn.disabled=false;
+}
+
+async function submitOrder(){
+  if(!ibkrConnected){showIBKRMsg("Connect to IBKR first","var(--r)");return}
+  var dir=document.getElementById("ordDir").value;
+  var side=document.getElementById("ordType").value;
+  var strike=document.getElementById("ordStrike").value;
+  var ordType=document.getElementById("ordOrdType").value;
+  var limit=parseFloat(document.getElementById("ordLimit").value)||0;
+  var qty=parseInt(document.getElementById("ordQty").value)||1;
+  showIBKRMsg("Searching for SPY "+strike+side+" contract...","var(--y)");
+  try{
+    // Search for contract
+    var sr=await fetch(ibkrBase+"/v1/api/iserver/secdef/search",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({symbol:"SPY",secType:"OPT",exchange:"SMART"})});
+    var sd=await sr.json();
+    if(!sd||!sd.length){showIBKRMsg("No contracts found for SPY options","var(--r)");return}
+    var conid=sd[0].conid;
+    // Place order
+    var order={acctId:ibkrAccount,conid:conid,secType:conid+":"+side,orderType:ordType,side:dir,quantity:qty,tif:"DAY"};
+    if(ordType==="LMT")order.price=limit;
+    showIBKRMsg("Placing order...","var(--y)");
+    var or=await fetch(ibkrBase+"/v1/api/iserver/account/"+ibkrAccount+"/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({orders:[order]})});
+    var od=await or.json();
+    if(od&&od[0]&&od[0].order_id){
+      showIBKRMsg("\u2713 Order placed! ID: "+od[0].order_id,"var(--g)");
+    }else if(od&&od[0]&&od[0].id){
+      // Needs confirmation
+      showIBKRMsg("Order requires confirmation. Confirming...","var(--y)");
+      var cr=await fetch(ibkrBase+"/v1/api/iserver/reply/"+od[0].id,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({confirmed:true})});
+      var cd=await cr.json();
+      showIBKRMsg("\u2713 Order confirmed and submitted!","var(--g)");
+    }else{
+      showIBKRMsg("Unexpected response: "+JSON.stringify(od).slice(0,200),"var(--y)");
+    }
+  }catch(e){showIBKRMsg("Order error: "+e.message,"var(--r)")}
+}
+
+function showIBKRMsg(text,color){document.getElementById("ibkrMsg").innerHTML='<div class="ibkr-msg" style="background:'+color+'12;color:'+color+';border:1px solid '+color+'30">'+text+"</div>"}
+
+// ═══════ CONTROLS ═══════
 function togMan(t){var i=manCat.indexOf(t);if(i>=0)manCat.splice(i,1);else manCat.push(t);var m={GEOPOLITICAL:"b_geo",TARIFF:"b_tar",BREAKING:"b_brk"};document.getElementById(m[t]).className=manCat.indexOf(t)>=0?"mbtn on":"mbtn";render()}
 function togPause(){autoR=!autoR;var b=document.getElementById("b_pause");if(autoR){b.textContent="\u23F8 PAUSE";b.className="ctrl ag";startR()}else{b.textContent="\u25B6 RESUME";b.className="ctrl";if(intv){clearInterval(intv);intv=null}}document.getElementById("sLabel").textContent=(autoR?"LIVE 30s":"PAUSED")+" #"+fetchN}
 function startR(){if(intv)clearInterval(intv);intv=setInterval(doFetch,30000)}
