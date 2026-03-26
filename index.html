@@ -211,14 +211,35 @@ async function fetchEr(){var today=new Date().toISOString().slice(0,10);try{var 
 
 async function doFetch(){
   document.getElementById("dot").style.background="var(--y)";document.getElementById("dot").style.animation="pulse 1s infinite";document.getElementById("sMsg").textContent="Fetching...";document.getElementById("sMsg").style.color="var(--y)";var errs=[];
-  var syms=[{s:"SPY",k:"spy"},{s:"QQQ",k:"qqq"},{s:"IWM",k:"iwm"}];var qr=await Promise.allSettled(syms.map(function(s){return fhQ(s.s)}));
-  qr.forEach(function(r,i){if(r.status==="fulfilled"&&r.value&&r.value.c>0){D[syms[i].k]=r.value;dbg("\u2713 "+syms[i].s+": $"+r.value.c)}else{errs.push(syms[i].s);dbg("\u2717 "+syms[i].s+": "+(r.status==="rejected"?r.reason&&r.reason.message:"empty"))}});
-  var gotV=false,vS=["^VIX","VIX","VIXY"];for(var vi=0;vi<vS.length;vi++){if(gotV)break;try{var q=await fhQ(vS[vi]);if(q&&q.c>0){D.vix={level:q.c,pc:q.pc,source:vS[vi],isProxy:vS[vi]==="VIXY"};dbg("\u2713 VIX via "+vS[vi]+": "+q.c);gotV=true}else dbg("\u25CB "+vS[vi]+": c="+(q&&q.c))}catch(e){dbg("\u2717 "+vS[vi]+": "+e.message)}}if(!gotV)errs.push("VIX");
-  try{var cn=await fetchYC();if(cn&&cn.c.length>0){D.candles=cn;dbg("\u2713 Candles: "+cn.c.length+" bars")}else dbg("\u25CB Candles: none")}catch(e){errs.push("Candles")}
-  try{D.econ=await fetchEc();dbg("\u2713 Econ: "+D.econ.length)}catch(e){errs.push("Econ")}
-  try{D.earnings=await fetchEr();dbg("\u2713 Earnings: "+D.earnings.length)}catch(e){errs.push("Earnings")}
+  // TRY SERVER API FIRST (gets Yahoo candles + econ server-side, no CORS)
+  var usedApi=false;
+  try{
+    var ar=await fetch("/api/data");
+    if(ar.ok){
+      var ad=await ar.json();
+      if(ad.spy){D.spy=ad.spy;dbg("\u2713 SPY: $"+ad.spy.c+" (API)")}
+      if(ad.qqq){D.qqq=ad.qqq;dbg("\u2713 QQQ: $"+ad.qqq.c+" (API)")}
+      if(ad.iwm){D.iwm=ad.iwm;dbg("\u2713 IWM: $"+ad.iwm.c+" (API)")}
+      if(ad.vix){D.vix=ad.vix;dbg("\u2713 VIX: "+ad.vix.level+" via "+ad.vix.source+" (API)")}
+      if(ad.candles&&ad.candles.c&&ad.candles.c.length>0){D.candles=ad.candles;dbg("\u2713 Candles: "+ad.candles.c.length+" bars (API)")}
+      else{dbg("\u25CB Candles: none from API")}
+      if(ad.econ){D.econ=ad.econ;dbg("\u2713 Econ: "+ad.econ.length+" (API)")}
+      if(ad.earnings){D.earnings=ad.earnings;dbg("\u2713 Earnings: "+ad.earnings.length+" (API)")}
+      if(ad.errors&&ad.errors.length>0){errs=ad.errors;dbg("\u26A0 API partial: "+ad.errors.join(", "))}
+      usedApi=true;
+    }else{dbg("\u2717 API route: HTTP "+ar.status+", falling back to direct")}
+  }catch(e){dbg("\u2717 API route: "+e.message+", falling back to direct")}
+  // FALLBACK: direct Finnhub if API failed
+  if(!usedApi){
+    var syms=[{s:"SPY",k:"spy"},{s:"QQQ",k:"qqq"},{s:"IWM",k:"iwm"}];var qr=await Promise.allSettled(syms.map(function(s){return fhQ(s.s)}));
+    qr.forEach(function(r,i){if(r.status==="fulfilled"&&r.value&&r.value.c>0){D[syms[i].k]=r.value;dbg("\u2713 "+syms[i].s+": $"+r.value.c)}else{errs.push(syms[i].s);dbg("\u2717 "+syms[i].s+": "+(r.status==="rejected"?r.reason&&r.reason.message:"empty"))}});
+    var gotV=false,vS=["^VIX","VIX","VIXY"];for(var vi=0;vi<vS.length;vi++){if(gotV)break;try{var q=await fhQ(vS[vi]);if(q&&q.c>0){D.vix={level:q.c,pc:q.pc,source:vS[vi],isProxy:vS[vi]==="VIXY"};dbg("\u2713 VIX via "+vS[vi]+": "+q.c);gotV=true}else dbg("\u25CB "+vS[vi]+": c="+(q&&q.c))}catch(e){dbg("\u2717 "+vS[vi]+": "+e.message)}}if(!gotV)errs.push("VIX");
+    try{var cn=await fetchYC();if(cn&&cn.c.length>0){D.candles=cn;dbg("\u2713 Candles: "+cn.c.length+" bars")}else dbg("\u25CB Candles: none (CORS blocked or market closed)")}catch(e){errs.push("Candles")}
+    try{D.econ=await fetchEc();dbg("\u2713 Econ: "+D.econ.length)}catch(e){errs.push("Econ")}
+    try{D.earnings=await fetchEr();dbg("\u2713 Earnings: "+D.earnings.length)}catch(e){errs.push("Earnings")}
+  }
   ready=true;fetchN++;var ok=errs.length===0;
-  document.getElementById("sMsg").textContent=ok?"ALL FEEDS CONNECTED":"PARTIAL — "+errs.join(", ").toUpperCase();document.getElementById("sMsg").style.color=ok?"var(--g)":"var(--y)";
+  document.getElementById("sMsg").textContent=ok?"ALL FEEDS CONNECTED"+(usedApi?" (API)":""):"PARTIAL — "+errs.join(", ").toUpperCase();document.getElementById("sMsg").style.color=ok?"var(--g)":"var(--y)";
   document.getElementById("dot").style.background=ok?"var(--g)":"var(--y)";document.getElementById("dot").style.animation="none";document.getElementById("sLabel").textContent=(autoR?"LIVE 30s":"PAUSED")+" #"+fetchN;render()
 }
 
